@@ -30,7 +30,7 @@ public class EventListener implements Listener{
         Player p = e.getPlayer();
 
         if(!plugin.isAuthed(p)){
-            p.sendMessage(TextFormat.RED + "You are not logged in.");
+            p.sendMessage("§cВы не авторизованны");
             e.setCancelled();
         }
     }
@@ -40,7 +40,7 @@ public class EventListener implements Listener{
         Player p = e.getPlayer();
 
         if(!plugin.isAuthed(p)){
-            p.sendMessage(TextFormat.RED + "You are not logged in.");
+            p.sendMessage("§cВы не авторизованны.");
             e.setCancelled();
         }
     }
@@ -50,9 +50,9 @@ public class EventListener implements Listener{
         Player p = e.getPlayer();
 
         if(plugin.provider.isPlayerRegistered(p)){
-            p.sendMessage(TextFormat.YELLOW + "This account is registered\n" + TextFormat.GREEN + "Please login using /login <password>");
+            p.sendMessage(TextFormat.YELLOW + "Ваш аккаунт зарегистрирован\n" + TextFormat.GREEN + "Для авторизации: §a/login §8[§a§lПароль§8]");
         }else{
-            p.sendMessage(TextFormat.GREEN + "Please register using /register <password> <password>");
+            p.sendMessage(TextFormat.GREEN + "Для регистрации: §a/register §8[§a§lПароль@§8] §8[§a§lПовтор пароля@§8]");
         }
 
         plugin.unauthed.put(p.getName().toLowerCase(), p);
@@ -72,7 +72,7 @@ public class EventListener implements Listener{
         Player p = e.getPlayer();
 
         if(!plugin.isAuthed(p)){
-            p.sendMessage(TextFormat.RED + "You are not logged in.");
+            p.sendMessage("§cВы не авторизованны.");
             e.setCancelled();
         }
     }
@@ -147,7 +147,7 @@ public class EventListener implements Listener{
             Entity killer = ((EntityDamageByEntityEvent) e).getDamager();
 
             if(killer instanceof Player && !plugin.isAuthed((Player) killer)){
-                ((Player) killer).sendMessage(TextFormat.RED + "You are not logged in.");
+                ((Player) killer).sendMessage("§cВы не авторизованны.");
                 e.setCancelled();
             }
         }
