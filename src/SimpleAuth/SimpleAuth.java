@@ -81,15 +81,15 @@ public class SimpleAuth extends PluginBase implements Listener{
         switch (cmd.getName().toLowerCase()){
             case "register":
                 if(isAuthed((Player) sender) || provider.isPlayerRegistered((Player) sender) || provider.getPlayer((Player) sender) != null){
-                    sender.sendMessage(TextFormat.RED + "You are already registered.");
+                    sender.sendMessage("§cВы уже зарегистрированы");
                     break;
                 }
                 if(args.length != 2){
-                    sender.sendMessage(TextFormat.RED + "Use /register <password> <password>");
+                    sender.sendMessage("Использования: §a/register §8[§a§lПароль@§8] §8[§a§lПовтор пароля@§8]");
                     break;
                 }
                 if(!args[0].equals(args[1])){
-                    sender.sendMessage(TextFormat.RED + "Both passwords must be equal!");
+                    sender.sendMessage("§cОба пароля должны быть одинаковыми!");
                     break;
                 }
 
@@ -99,15 +99,15 @@ public class SimpleAuth extends PluginBase implements Listener{
                 break;
             case "login":
                 if(isAuthed((Player) sender)){
-                    sender.sendMessage(TextFormat.RED + "You are already logged in.");
+                    sender.sendMessage("§cВы уже авторизованны.");
                     break;
                 }
                 if(!provider.isPlayerRegistered((Player) sender) || provider.getPlayer((Player) sender) == null){
-                    sender.sendMessage(TextFormat.RED + "You are not registered!");
+                    sender.sendMessage("§cВы еще не зарегистрированны!");
                     break;
                 }
                 if(args.length != 1){
-                    sender.sendMessage(TextFormat.RED + "Use /login <password>");
+                    sender.sendMessage("Использования: §a/login §8[§a§lПароль§8]");
                     break;
                 }
 
@@ -115,13 +115,13 @@ public class SimpleAuth extends PluginBase implements Listener{
                 break;
             case "changepassword":
                 if(args.length != 3){
-                    sender.sendMessage(TextFormat.RED + "Use /changepassword <old password> <new password> <new password>");
+                    sender.sendMessage("Использования: §a/changepassword §8[§a§lСтарый пароль§l] §8[§a§lНовый пароль пароль§l] §8[§a§lПовтор нового пароль§l]");
                     break;
                 }
                 break;
             case "unregister":
                 if(args.length != 1){
-                    sender.sendMessage(TextFormat.RED + "Use /unregister <password>");
+                    sender.sendMessage("Использования: §a/unregister §8[§a§lПароль§8]");
                     break;
                 }
                 break;
@@ -135,7 +135,7 @@ public class SimpleAuth extends PluginBase implements Listener{
             return false;
         }
         unauthed.remove(p.getName().toLowerCase());
-        p.sendMessage(TextFormat.GREEN + "You have been authenticated.");
+        p.sendMessage("§aВы авторизовались.");
 
         return true;
     }
@@ -143,20 +143,20 @@ public class SimpleAuth extends PluginBase implements Listener{
     public boolean login(Player p, String pass){
         Map<String, Object> data = provider.getPlayer(p);
         if(data == null){
-            p.sendMessage(TextFormat.RED + "Error during authentication.");
+            p.sendMessage("§cОшибка при авторизации.");
             return false;
         }
         if(data.get("hash") == null){
-            p.sendMessage(TextFormat.RED + "Error during authentication.");
+            p.sendMessage("§cОшибка при авторизации.");
             return false;
         }
         if(!data.get("hash").equals(hash(p.getName().toLowerCase(), pass))){
-            p.sendMessage(TextFormat.RED + "Incorrect password!");
+            p.sendMessage("§cНеправильный пароль!");
             return false;
         }
 
         unauthed.remove(p.getName().toLowerCase());
-        p.sendMessage(TextFormat.GREEN + "You have been authenticated.");
+        p.sendMessage("§aВы авторизовались.");
         return true;
     }
 
